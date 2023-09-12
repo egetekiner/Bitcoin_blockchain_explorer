@@ -79,7 +79,7 @@ export default function UserReports() {
               }
             />
           }
-          name='Earnings'
+          name='Latest Block'
           value='$350.4'
         />
         <MiniStatistics
@@ -93,10 +93,10 @@ export default function UserReports() {
               }
             />
           }
-          name='Spend this month'
+          name='Current Price'
           value='$642.39'
         />
-        <MiniStatistics growth='+23%' name='Sales' value='$574.34' />
+        <MiniStatistics growth='+23%' name='24H Change' value='$574.34' />
         <MiniStatistics
           endContent={
             <Flex me='-16px' mt='10px'>
@@ -115,7 +115,7 @@ export default function UserReports() {
               </Select>
             </Flex>
           }
-          name='Your balance'
+          name='Total Volume'
           value='$1,000'
         />
         <MiniStatistics
