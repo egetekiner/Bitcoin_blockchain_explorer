@@ -99,7 +99,7 @@ export default function MainDashboard() {
       {!isLoading && statData && exchangeRates && poolData && tradeVolumeData && (
     <>
       <Box pt={{ base: '130px', md: '80px', xl: '80px' }}>
-        <SimpleGrid columns={{ base: 1, md: 2, lg: 3, '2xl': 6 }} gap='20px' mb='30px'>
+      <SimpleGrid columns={{ base: 1, md: 1, lg: 1, '2xl': 4 }} gap='20px' mb='30px'> 
           <MiniStatistics
             endContent={
               <Flex me='-16px' mt='10px'>
@@ -133,6 +133,33 @@ export default function MainDashboard() {
             name='Current Rate'
             value={getCurrentRate()}
           />
+
+            <MiniStatistics
+            startContent={<IconBox
+                w='100px'
+                h='56px'
+                bg={boxBg}
+                icon={<Icon w='55px' h='32px' as={MdBarChart} color={brandColor} />} />}
+                name='Total Hash Rate'
+                value={HashRate} />
+
+            <MiniStatistics
+            startContent={<IconBox
+                w='56px'
+                h='56px'
+                bg={boxBg}
+                icon={<Icon w='32px' h='32px' as={MdBarChart} color={brandColor} />} />}
+                name='Total Hash Rate'
+                value={HashRate} />
+                
+            <MiniStatistics
+            startContent={<IconBox
+                w='56px'
+                h='56px'
+                bg={boxBg}
+                icon={<Icon w='32px' h='32px' as={MdBarChart} color={brandColor} />} />}
+                name='Total Hash Rate'
+                value={HashRate} />
 
            
         </SimpleGrid>
