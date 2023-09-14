@@ -13,6 +13,7 @@ import {
 // Admin Imports
 import MainDashboard from "views/admin/default";
 import Bitcoin_address from "views/admin/default_explorer";
+import Responsive_explorer from "views/admin/responsive_explorer";
 import NFTMarketplace from "views/admin/marketplace";
 import Profile from "views/admin/profile";
 import DataTables from "views/admin/dataTables";
@@ -35,6 +36,13 @@ const routes = [
     path: "/default_explorer",
     icon: <Icon as={MdWallet} width='20px' height='20px' color='inherit' />,
     component: Bitcoin_address,
+  },
+  {
+    name: "Responsive Explorer",
+    layout: "/admin",
+    path: "/responsive_explorer",
+    icon: <Icon as={MdWallet} width='20px' height='20px' color='inherit' />,
+    component: Responsive_explorer,
   },
   {
     name: "NFT Marketplace",
