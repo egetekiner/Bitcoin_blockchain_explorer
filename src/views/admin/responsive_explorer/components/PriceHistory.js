@@ -29,11 +29,10 @@ export default function TradeVolume(props) {
 useEffect(() => {
     setIsLoading(true);
     axios
-      .get("http://localhost:8000/trade_volume") // Replace with your API URL
+      .get("http://localhost:8000/pricing_history_1month") // Replace with your API URL
       .then((response) => {
         const transformedData = transformTradeVolumeData(response.data);
         setTradeVolumeData(transformedData);
-        console.log(transformedData)
         setIsLoading(false);
       })
       .catch((error) => {
@@ -42,28 +41,6 @@ useEffect(() => {
       });
   }, []);
 
-
-/*
-  // Fetch Trade Volume data
-  useEffect(() => {
-    const fetchVolumeData = async () => {
-      setIsLoading(true);
-      setErrorMsg('');
-      
-      try {
-        const response = await axios.get(`http://localhost:8000/trade_volume`);
-        const transformedData = transformTradeVolumeData(response.data);
-        setTradeVolumeData(transformedData);
-      } catch (error) {
-        console.error("An error occurred while fetching Volume data:", error);
-        setErrorMsg('An error occurred. Please try again.');
-      }
-      
-      setIsLoading(false);
-    };
-    fetchVolumeData();
-  }, []);
-*/
   const textColor = useColorModeValue("secondaryGray.900", "white");
   const boxBg = useColorModeValue("secondaryGray.300", "whiteAlpha.100");
   const textColorSecondary = useColorModeValue("secondaryGray.600", "white");
@@ -74,7 +51,7 @@ useEffect(() => {
     if (rawData && Array.isArray(rawData.values)) {
       return [
         {
-          name: 'Trade Volume',
+          name: 'Price',
           data: rawData.values.map((item) => ({
             x: new Date(item.x * 1000),
             y: item.y
@@ -98,28 +75,14 @@ useEffect(() => {
     },
     yaxis: {
       title: {
-        text: 'Trade Volume (USD)'
+        text: 'Price (USD)'
       }
     }
   };
-/*
-  return (
-    <Box minH="260px" minW="75%" mt="auto">
-      <ReactApexChart
-        options={chartOptions}
-        series={tradeVolumeData}
-        type='area'
-        width='100%'
-        height='100%'
-      />
-    </Box>
-  );
-}
-*/
 
 return (
-    <Card justifyContent="center" align="center" direction="column" w="100%" mb="100px">
-      <Flex justify="space-between" ps="40px" pe="40px" pt="15px">
+    <Card justifyContent="center" align="center" direction="column" w="100%" mb="0px">
+      <Flex justify="space-between" ps="0px" pe="20px" pt="5px">
         <Flex align="center" w="100%">
           <Button
             bg={boxBg}
@@ -143,25 +106,7 @@ return (
         </Flex>
       </Flex>
       <Flex w="100%" flexDirection={{ base: "column", lg: "row" }}>
-        <Flex flexDirection="column" me="20px" mt="28px">
-          <Text
-            color={textColor}
-            fontSize="34px"
-            textAlign="start"
-            fontWeight="700"
-            lineHeight="100%">
-            $550.465K
-          </Text>
-          <Text
-            color={textColorSecondary}
-            fontSize="sm"
-            fontWeight="500"
-            mt="4px"
-            me="12px">
-            Total Trade Volume
-          </Text>
-        </Flex>
-        <Box minH="260px" minW="75%" mt="auto">
+        <Box minH="260px" minW="100%" mt="auto">
           <LineChart chartData={tradeVolumeData} chartOptions={chartOptions} />
         </Box>
       </Flex>
