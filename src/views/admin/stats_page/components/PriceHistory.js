@@ -29,7 +29,7 @@ export default function TradeVolume(props) {
 useEffect(() => {
     setIsLoading(true);
     axios
-      .get("http://localhost:8000/trade_volume") // Replace with your API URL
+      .get("http://localhost:8000/pricing_history_1month") // Replace with your API URL
       .then((response) => {
         const transformedData = transformTradeVolumeData(response.data);
         setTradeVolumeData(transformedData);
@@ -118,8 +118,8 @@ useEffect(() => {
 */
 
 return (
-    <Card justifyContent="center" align="center" direction="column" w="100%" mb="100px">
-      <Flex justify="space-between" ps="40px" pe="40px" pt="15px">
+    <Card justifyContent="center" align="center" direction="column" w="100%" mb="0px">
+      <Flex justify="space-between" ps="0px" pe="20px" pt="5px">
         <Flex align="center" w="100%">
           <Button
             bg={boxBg}
@@ -143,25 +143,7 @@ return (
         </Flex>
       </Flex>
       <Flex w="100%" flexDirection={{ base: "column", lg: "row" }}>
-        <Flex flexDirection="column" me="20px" mt="28px">
-          <Text
-            color={textColor}
-            fontSize="34px"
-            textAlign="start"
-            fontWeight="700"
-            lineHeight="100%">
-            $550.465K
-          </Text>
-          <Text
-            color={textColorSecondary}
-            fontSize="sm"
-            fontWeight="500"
-            mt="4px"
-            me="12px">
-            Total Trade Volume
-          </Text>
-        </Flex>
-        <Box minH="260px" minW="75%" mt="auto">
+        <Box minH="260px" minW="100%" mt="auto">
           <LineChart chartData={tradeVolumeData} chartOptions={chartOptions} />
         </Box>
       </Flex>

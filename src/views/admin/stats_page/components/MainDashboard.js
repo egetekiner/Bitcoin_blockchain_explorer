@@ -140,9 +140,18 @@ export default function MainDashboard() {
                 w='100px'
                 h='56px'
                 bg={boxBg}
+                icon={<Icon w='55px' h='32px' as={MdBarChart} color={brandColor} />} />}
+                name='Total Hash Rate'
+                value={HashRate} />
+
+            <MiniStatistics
+            startContent={<IconBox
+                w='56px'
+                h='56px'
+                bg={boxBg}
                 icon={<Icon w='32px' h='32px' as={MdBarChart} color={brandColor} />} />}
-                name='Latest Block'
-                value={Block_index} />
+                name='Total Hash Rate'
+                value={HashRate} />
 
             <MiniStatistics
             startContent={<IconBox
@@ -213,7 +222,7 @@ export default function MainDashboard() {
                     h='56px'
                     bg={boxBg}
                     icon={<Icon w='32px' h='32px' as={MdBarChart} color={brandColor} />} />}
-                  name='Trade Volume'
+                  name='Current Trade Volume'
                   value={trade_volume_btc} />
 
         <MiniStatistics
