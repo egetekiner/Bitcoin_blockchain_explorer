@@ -122,7 +122,7 @@ export default function AddressPage({ blockHeight }) {
             <>
             <Box pt={{ base: "80px", md: "50px", xl: "80px" }}>
               <SimpleGrid
-                columns={{ base: 1, md: 1, lg: 1, "2xl": 6 }}
+                columns={{ base: 1, md: 1, lg: 1, "2xl": 1 }}
                 gap='40px'
                 mb='60px'>
                 <MiniStatistics

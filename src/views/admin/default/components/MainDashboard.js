@@ -11,11 +11,10 @@ import {
 } from '@chakra-ui/react';
 
 import MiniStatistics from 'components/card/MiniStatistics';
-import BlockchainDataInstance from 'views/admin/responsive_explorer/components/GetData';
-import PoolPieCard from 'views/admin/responsive_explorer/components/PoolPieChart';
-import LineChart from 'components/charts/LineChart';
-import TradeVolume from './TradeVolume';
-import PricingHistory from './PriceHistory';
+import BlockchainDataInstance from 'views/admin/default/components/GetData';
+import PoolPieCard from 'views/admin/default/components/PoolPieChart';
+import TradeVolume from 'views/admin/default/components/TradeVolume';
+import PricingHistory from 'views/admin/default/components/PriceHistory';
 import { MdBarChart } from 'react-icons/md';
 import IconBox from "components/icons/IconBox";
 
@@ -34,7 +33,6 @@ export default function MainDashboard() {
 
   const boxBg = useColorModeValue("secondaryGray.300", "whiteAlpha.100");
   const brandColor = useColorModeValue("brand.500", "white");
-  const [, forceUpdate] = useState();
 
 
   const HashRate = statData ? statData.hash_rate : 'Waiting For Data';
@@ -42,27 +40,32 @@ export default function MainDashboard() {
   const total_mined_BTC = statData ? statData.totalbc : 'Waiting For Data';
   const Block_index = statData ? statData.n_blocks_total : 'Waiting For Data';
   const trade_volume_btc = statData ? statData.trade_volume_btc : 'Waiting For Data';
+  const trade_volume_usd = statData ? statData.trade_volume_usd : 'Waiting For Data';
+  
 
-  useEffect(() => {
-    // Fetch data and then update state
-    updateData()
-      .then(() => {
-        setIsLoading(false);
-      })
-      .catch((error) => {
-        setErrorMsg('An error occurred while fetching data. Please try again.');
-        setIsLoading(false);
-      });
-  }, []);
+  
+
+  function formatNumber(num) {
+    if (num >= 1000000000) {
+      return (num / 1000000000).toFixed(2) + 'B';
+    }
+    if (num >= 1000000) {
+      return (num / 1000000).toFixed(2) + 'M';
+    }
+    if (num >= 1000) {
+      return (num / 1000).toFixed(2) + 'K';
+    }
+    return num;
+  }
   
 
 
-  const updateData = async () => {
+  async function fetchData() {
     setIsLoading(true);
+
     try {
       const pricingData = await BlockchainDataInstance.getPricingData();
       setExchangeRates(pricingData);
-      console.log(pricingData)
 
       const fetchedStatData = await BlockchainDataInstance.getStatsData();
       setStatData(fetchedStatData);
@@ -72,14 +75,18 @@ export default function MainDashboard() {
 
       const fetchedTradeVolumeData = await BlockchainDataInstance.getTradeVolumeData1Year();
       setTradeVolumeData(fetchedTradeVolumeData);
-      console.log(fetchedTradeVolumeData)
 
       setIsLoading(false);
     } catch (error) {
       setErrorMsg('An error occurred while fetching data. Please try again.');
       setIsLoading(false);
     }
-  };
+  }
+
+
+  useEffect(() => {
+    fetchData(); // Fetch data when component mounts
+  }, []);
 
   const handleCurrencyChange = (e) => {
     setSelectedCurrency(e.target.value);
@@ -100,7 +107,9 @@ export default function MainDashboard() {
       {!isLoading && statData && exchangeRates && poolData && tradeVolumeData && (
     <>
       <Box pt={{ base: '130px', md: '80px', xl: '80px' }}>
-      <SimpleGrid columns={{ base: 1, md: 1, lg: 1, '2xl': 4 }} gap='20px' mb='30px'> 
+      <SimpleGrid columns={{ base: 1, md: 2, lg: 3, '2xl': 6 }} gap='20px' mb='20px' alignItems="center"
+  justifyItems="center"> 
+          
           <MiniStatistics
             endContent={
               <Flex me='-16px' mt='10px'>
@@ -131,73 +140,21 @@ export default function MainDashboard() {
                 </Select>
               </Flex>
             }
-            name='Current Rate'
+            name='Current Rates'
             value={getCurrentRate()}
+            growth='-23%'
           />
 
             <MiniStatistics
             startContent={<IconBox
-                w='100px'
-                h='56px'
-                bg={boxBg}
-                icon={<Icon w='55px' h='32px' as={MdBarChart} color={brandColor} />} />}
-                name='Total Hash Rate'
-                value={HashRate} />
-
-            <MiniStatistics
-            startContent={<IconBox
                 w='56px'
                 h='56px'
                 bg={boxBg}
                 icon={<Icon w='32px' h='32px' as={MdBarChart} color={brandColor} />} />}
-                name='Total Hash Rate'
-                value={HashRate} />
+                name='Latest Block'
+                value={Block_index} />
 
             <MiniStatistics
-            startContent={<IconBox
-                w='56px'
-                h='56px'
-                bg={boxBg}
-                icon={<Icon w='32px' h='32px' as={MdBarChart} color={brandColor} />} />}
-                name='Total Hash Rate'
-                value={HashRate} />
-
-           
-        </SimpleGrid>
-
-    
-
-        
-      </Box>
-      <PricingHistory mb="80px"/>
-      <Box height="20px"></Box>
-      <TradeVolume rawData={tradeVolumeData} />
-      <Box pt={{ base: '130px', md: '80px', xl: '80px' }}>
-      <SimpleGrid columns={{ base: 1, md: 1, lg: 1, '2xl': 2 }} gap='20px' mb='30px'> 
-        
-        <PoolPieCard poolData={poolData} />
-
-        <SimpleGrid columns={{ base: 1, md: 1, lg: 1, '2xl': 2 }} gap='20px' mb='30px'> 
-
-        <MiniStatistics
-                  startContent={<IconBox
-                    w='56px'
-                    h='56px'
-                    bg={boxBg}
-                    icon={<Icon w='32px' h='32px' as={MdBarChart} color={brandColor} />} />}
-                  name='Total Hash Rate'
-                  value={HashRate} />
-
-        <MiniStatistics
-                  startContent={<IconBox
-                    w='56px'
-                    h='56px'
-                    bg={boxBg}
-                    icon={<Icon w='32px' h='32px' as={MdBarChart} color={brandColor} />} />}
-                  name='Minutes Between Blocks'
-                  value={minutes_between_blocks} />
-
-        <MiniStatistics
                   startContent={<IconBox
                     w='56px'
                     h='56px'
@@ -205,6 +162,37 @@ export default function MainDashboard() {
                     icon={<Icon w='32px' h='32px' as={MdBarChart} color={brandColor} />} />}
                   name='Total BTC Mined'
                   value={total_mined_BTC / 100000000} />
+
+            <MiniStatistics
+                  startContent={<IconBox
+                    w='56px'
+                    h='56px'
+                    bg={boxBg}
+                    icon={<Icon w='32px' h='32px' as={MdBarChart} color={brandColor} />} />}
+                  name='Minutes Between Blocks'
+                  value={minutes_between_blocks} />            
+        </SimpleGrid>
+
+    
+      </Box>
+      <PricingHistory mb="80px"/>
+      <Box height="20px"></Box>
+      <TradeVolume trade_volume_btc={trade_volume_btc} trade_volume_usd={formatNumber(trade_volume_usd)} />
+      <Box pt={{ base: '130px', md: '80px', xl: '80px' }}>
+      <SimpleGrid columns={{ base: 1, md: 1, lg: 1, '2xl': 2 }} gap='20px' mb='30px'> 
+        
+        <PoolPieCard mb="80px"/>
+
+        <SimpleGrid columns={{ base: 1, md: 1, lg: 1, '2xl': 1 }} gap='20px' mb='30px'> 
+        
+        <MiniStatistics
+                  startContent={<IconBox
+                    w='56px'
+                    h='56px'
+                    bg={boxBg}
+                    icon={<Icon w='32px' h='32px' as={MdBarChart} color={brandColor} />} />}
+                  name='Total Hash Rate'
+                  value={HashRate} />        
 
         <MiniStatistics
                   startContent={<IconBox
@@ -222,17 +210,10 @@ export default function MainDashboard() {
                     h='56px'
                     bg={boxBg}
                     icon={<Icon w='32px' h='32px' as={MdBarChart} color={brandColor} />} />}
-                  name='Current Trade Volume'
+                  name='Trade Volume'
                   value={trade_volume_btc} />
 
-        <MiniStatistics
-                  startContent={<IconBox
-                    w='56px'
-                    h='56px'
-                    bg={boxBg}
-                    icon={<Icon w='32px' h='32px' as={MdBarChart} color={brandColor} />} />}
-                  name='Minutes Between Blocks'
-                  value={minutes_between_blocks} /> 
+        
 
 
         </SimpleGrid>

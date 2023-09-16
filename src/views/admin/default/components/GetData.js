@@ -45,7 +45,7 @@ class BlockchainDataInstance {
     try {
       const response = await axios.get('http://127.0.0.1:8000/pricing_data');
       this.pricingData = response.data;
-      console.log('data successfully parsed: Pricing', response.data)
+      // console.log('data successfully parsed: Pricing', response.data)
       this.notify();
     } catch (error) {
       console.error("Failed to fetch pricing data:", error);
@@ -59,7 +59,7 @@ class BlockchainDataInstance {
     try {
       const response = await axios.get('http://localhost:8000/stats');
       this.statsData = response.data;
-      console.log('data successfully parsed: Stats', response.data)
+      // console.log('data successfully parsed: Stats', response.data)
       this.notify();
     } catch (error) {
       console.error("Failed to fetch stats data:", error);
@@ -72,7 +72,7 @@ class BlockchainDataInstance {
     try {
       const response = await axios.get('http://localhost:8000/pool');
       this.poolData = response.data;
-      console.log('data successfully parsed: Pools', response.data)
+      // console.log('data successfully parsed: Pools', response.data)
       this.notify();
     } catch (error) {
       console.error("Failed to fetch pool data:", error);
@@ -84,7 +84,7 @@ class BlockchainDataInstance {
     try {
       const response = await axios.get('http://localhost:8000/trade_volume');
       this.TradeVolume = response.data;
-      console.log('data successfully parsed: Volume', response.data)
+      //console.log('data successfully parsed: Volume', response.data)
       this.notify();
     } catch (error) {
       console.error("Failed to fetch Trade Volume data:", error);

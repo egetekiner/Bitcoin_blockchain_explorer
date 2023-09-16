@@ -20,6 +20,7 @@ import {
 
 // Custom components
 import Card from "components/card/Card";
+import moment from "moment";
 import Menu from "components/menu/MainMenu";
 export default function CheckTable(props) {
   const { columnsData, tableData } = props;
@@ -61,7 +62,7 @@ export default function CheckTable(props) {
           fontSize='22px'
           fontWeight='700'
           lineHeight='100%'>
-          Check Table
+          Transactions
         </Text>
         <Menu />
       </Flex>

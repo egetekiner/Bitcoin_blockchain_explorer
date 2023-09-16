@@ -83,6 +83,7 @@ import {
       const newSize = Number(e.target.value);
       setPageSize(newSize);
     };
+
   
     return (
         <>
@@ -141,7 +142,7 @@ import {
                   {pageIndex + 1}
                 </strong>{' '}
                 of{' '}
-                <strong>{Math.ceil(blocks.length / pageSize)}</strong>
+                <strong>{Math.ceil(blocks?.length / pageSize)}</strong>
               </span>
             </div>
           </Card>

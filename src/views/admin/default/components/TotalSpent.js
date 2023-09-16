@@ -59,7 +59,7 @@ export default function TotalSpent(props) {
               color={textColorSecondary}
               me='4px'
             />
-            This month
+            1 Year
           </Button>
           <Button
             ms='auto'
