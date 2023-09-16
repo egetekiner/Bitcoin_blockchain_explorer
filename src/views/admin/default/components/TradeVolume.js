@@ -3,7 +3,11 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import ReactApexChart from "react-apexcharts";
 import LineChart from "components/charts/LineChart";
-
+import {
+  lineChartDataTotalSpent,
+  lineChartOptionsTotalSpent,
+  lineChartOptionsTradeVolume,
+} from "variables/charts";
 
 // UI Components
 import {
@@ -21,15 +25,18 @@ import { RiArrowUpSFill } from 'react-icons/ri';
 // Custom Components
 import Card from 'components/card/Card.js';
 
-export default function TradeVolume(props) {
+export default function TradeVolume({trade_volume_btc, trade_volume_usd}) {
   const [tradeVolumeData, setTradeVolumeData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
+  const textColor = useColorModeValue("secondaryGray.900", "white");
+  const boxBg = useColorModeValue("secondaryGray.300", "whiteAlpha.100");
+  const textColorSecondary = useColorModeValue("secondaryGray.600", "white");
   
 useEffect(() => {
     setIsLoading(true);
     axios
-      .get("http://localhost:8000/pricing_history_1month") // Replace with your API URL
+      .get("http://localhost:8000/trade_volume") // Replace with your API URL
       .then((response) => {
         const transformedData = transformTradeVolumeData(response.data);
         setTradeVolumeData(transformedData);
@@ -41,32 +48,6 @@ useEffect(() => {
         setIsLoading(false);
       });
   }, []);
-
-
-/*
-  // Fetch Trade Volume data
-  useEffect(() => {
-    const fetchVolumeData = async () => {
-      setIsLoading(true);
-      setErrorMsg('');
-      
-      try {
-        const response = await axios.get(`http://localhost:8000/trade_volume`);
-        const transformedData = transformTradeVolumeData(response.data);
-        setTradeVolumeData(transformedData);
-      } catch (error) {
-        console.error("An error occurred while fetching Volume data:", error);
-        setErrorMsg('An error occurred. Please try again.');
-      }
-      
-      setIsLoading(false);
-    };
-    fetchVolumeData();
-  }, []);
-*/
-  const textColor = useColorModeValue("secondaryGray.900", "white");
-  const boxBg = useColorModeValue("secondaryGray.300", "whiteAlpha.100");
-  const textColorSecondary = useColorModeValue("secondaryGray.600", "white");
 
 
   // Transform raw data into chart-friendly data
@@ -102,24 +83,11 @@ useEffect(() => {
       }
     }
   };
-/*
-  return (
-    <Box minH="260px" minW="75%" mt="auto">
-      <ReactApexChart
-        options={chartOptions}
-        series={tradeVolumeData}
-        type='area'
-        width='100%'
-        height='100%'
-      />
-    </Box>
-  );
-}
-*/
+
 
 return (
-    <Card justifyContent="center" align="center" direction="column" w="100%" mb="0px">
-      <Flex justify="space-between" ps="0px" pe="20px" pt="5px">
+    <Card justifyContent="center" align="center" direction="column" w="100%" mb="100px">
+      <Flex justify="space-between" ps="40px" pe="40px" pt="15px">
         <Flex align="center" w="100%">
           <Button
             bg={boxBg}
@@ -143,8 +111,25 @@ return (
         </Flex>
       </Flex>
       <Flex w="100%" flexDirection={{ base: "column", lg: "row" }}>
-        <Box minH="260px" minW="100%" mt="auto">
-          <LineChart chartData={tradeVolumeData} chartOptions={chartOptions} />
+        <Flex flexDirection="column" me="20px" mt="28px">
+          <Text color={textColor} fontSize="34px" textAlign="start" fontWeight="700" lineHeight="100%">
+          BTC {trade_volume_btc}
+          </Text>
+          <Text color={textColorSecondary} fontSize="sm" fontWeight="500" mt="4px" me="12px">
+            Estimated BTC Volume
+          </Text>
+          <Box height="20px"></Box>
+          <Text color={textColor} fontSize="34px" textAlign="start" fontWeight="700" lineHeight="100%">
+          USD {trade_volume_usd}
+          </Text>
+          
+          <Text color={textColorSecondary} fontSize="sm" fontWeight="500" mt="4px" me="12px">
+          Estimated USD Volume
+          </Text>
+          
+        </Flex>
+        <Box minH="260px" minW="75%" mt="auto">
+          <LineChart chartData={tradeVolumeData} chartOptions={lineChartOptionsTradeVolume} />
         </Box>
       </Flex>
     </Card>

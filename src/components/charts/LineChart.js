@@ -19,7 +19,7 @@ class LineChart extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    console.log('Component Did Update'); // Add this line
+    // console.log('Component Did Update'); // Add this line
     if (JSON.stringify(prevProps.chartData) !== JSON.stringify(this.props.chartData) || 
         JSON.stringify(prevProps.chartOptions) !== JSON.stringify(this.props.chartOptions)) {
       this.setState({

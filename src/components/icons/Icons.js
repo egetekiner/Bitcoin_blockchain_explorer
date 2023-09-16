@@ -421,6 +421,18 @@ export const SettingsIcon = createIcon({
   ),
 });
 
+
+export const MyLogo = createIcon({
+  displayName: "MyLogo",
+  viewBox: "0 0 100 100",
+  path: (
+    <svg width="100" height="100">
+      {/* Your SVG path data here */}
+      <path d="..."/>
+    </svg>
+  ),
+});
+
 export const SlackLogo = createIcon({
   displayName: "SlackLogo",
   viewBox: "0 0 24 24",

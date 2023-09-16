@@ -14,10 +14,8 @@ import {
 import MainDashboard from "views/admin/default";
 import Bitcoin_address from "views/admin/default_explorer";
 import Responsive_explorer from "views/admin/responsive_explorer";
-import NFTMarketplace from "views/admin/marketplace";
-import Profile from "views/admin/profile";
 import DataTables from "views/admin/dataTables";
-import RTL from "views/admin/rtl";
+import Search from "views/admin/default/components/SearchPage";
 
 // Auth Imports
 import SignInCentered from "views/auth/signIn";
@@ -30,63 +28,17 @@ const routes = [
     icon: <Icon as={MdHome} width='20px' height='20px' color='inherit' />,
     component: MainDashboard,
   },
+
   {
-    name: "Address Lookup",
+    name: "Search",
     layout: "/admin",
-    path: "/default_explorer",
+    path: "/search",
     icon: <Icon as={MdWallet} width='20px' height='20px' color='inherit' />,
-    component: Bitcoin_address,
+    component: Search,
   },
-  {
-    name: "Responsive Explorer",
-    layout: "/admin",
-    path: "/responsive_explorer",
-    icon: <Icon as={MdWallet} width='20px' height='20px' color='inherit' />,
-    component: Responsive_explorer,
-  },
-  {
-    name: "NFT Marketplace",
-    layout: "/admin",
-    path: "/nft-marketplace",
-    icon: (
-      <Icon
-        as={MdOutlineShoppingCart}
-        width='20px'
-        height='20px'
-        color='inherit'
-      />
-    ),
-    component: NFTMarketplace,
-    secondary: true,
-  },
-  {
-    name: "Data Tables",
-    layout: "/admin",
-    icon: <Icon as={MdBarChart} width='20px' height='20px' color='inherit' />,
-    path: "/data-tables",
-    component: DataTables,
-  },
-  {
-    name: "Profile",
-    layout: "/admin",
-    path: "/profile",
-    icon: <Icon as={MdPerson} width='20px' height='20px' color='inherit' />,
-    component: Profile,
-  },
-  {
-    name: "Sign In",
-    layout: "/auth",
-    path: "/sign-in",
-    icon: <Icon as={MdLock} width='20px' height='20px' color='inherit' />,
-    component: SignInCentered,
-  },
-  {
-    name: "RTL Admin",
-    layout: "/rtl",
-    path: "/rtl-default",
-    icon: <Icon as={MdHome} width='20px' height='20px' color='inherit' />,
-    component: RTL,
-  },
+
+  
+  
 ];
 
 export default routes;

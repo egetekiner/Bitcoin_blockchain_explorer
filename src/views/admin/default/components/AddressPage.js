@@ -95,7 +95,7 @@ export default function AddressPage({ bitcoinAddress }) {
 
             <Box pt={{ base: "130px", md: "80px", xl: "80px" }}>
               <SimpleGrid
-                columns={{ base: 1, md: 1, lg: 2, "2xl": 6 }}
+                columns={{ base: 1, md: 1, lg: 2, "2xl": 2 }}
                 gap='40px'
                 mb='60px'>
                 <MiniStatistics
@@ -119,7 +119,7 @@ export default function AddressPage({ bitcoinAddress }) {
               </SimpleGrid>
 
               <SimpleGrid
-                columns={{ base: 1, md: 2, lg: 2, "2xl": 6 }}
+                columns={{ base: 1, md: 2, lg: 2, "2xl": 2 }}
                 gap='20px'
                 mb='30px'>
 

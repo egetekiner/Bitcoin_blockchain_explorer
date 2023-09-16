@@ -20,9 +20,9 @@ import Transactions_Table from "views/admin/default_explorer/components/Address_
 
 export default function AddressPage({transaction_hash}) {
     // Chakra Color Mode
-    console.log(transaction_hash)
-    
-    
+
+    const [transactions, setTransactions] = useState([]);
+    const [blocks, setBlocks] = useState([]);
     const [tx_data, setTxData] = useState(null);  
     const brandColor = useColorModeValue("brand.500", "white");
     const boxBg = useColorModeValue("secondaryGray.300", "whiteAlpha.100");
@@ -41,7 +41,7 @@ export default function AddressPage({transaction_hash}) {
                 const btcResponse = await axios.get(`http://localhost:8000/rawtx/${transaction_hash}`);
                 setTxData(btcResponse.data);    
                 setHasSearched(true);
-                console.log(btcResponse.data)
+                // console.log(btcResponse.data)
 
             } catch (error) {
                 console.error("An error occurred while fetching data:", error);
